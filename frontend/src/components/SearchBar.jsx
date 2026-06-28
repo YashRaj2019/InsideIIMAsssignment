@@ -39,34 +39,37 @@ export default function SearchBar({ onSearch, isLoading }) {
   return (
     <div className="w-full max-w-3xl mx-auto flex flex-col gap-4">
       <form onSubmit={handleSubmit} className="w-full">
-        <div className="relative flex items-center w-full bg-slate-900/60 border-2 border-dark-border focus-within:border-brand-primary focus-within:shadow-glow rounded-2xl transition-all duration-300">
-          <div className="pl-5 text-dark-muted flex items-center justify-center">
-            <Search className="w-6 h-6 stroke-[2]" />
+        <div className="flex flex-col sm:flex-row gap-3 w-full">
+          {/* Responsive search input container */}
+          <div className="relative flex-1 flex items-center bg-slate-900/60 border-2 border-dark-border focus-within:border-brand-primary focus-within:shadow-glow rounded-2xl transition-all duration-300">
+            <div className="pl-4 text-dark-muted flex items-center justify-center">
+              <Search className="w-5 h-5 stroke-[2]" />
+            </div>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                if (error) setError('');
+              }}
+              disabled={isLoading}
+              placeholder="Search company name or stock ticker..."
+              className="flex-1 bg-transparent text-white text-sm sm:text-base tracking-wide placeholder-dark-muted focus:outline-none px-3 py-3.5 font-medium disabled:opacity-50"
+            />
           </div>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              if (error) setError('');
-            }}
-            disabled={isLoading}
-            placeholder="Search company name or stock ticker (e.g. Nvidia, MSFT, Tesla)..."
-            className="flex-1 bg-transparent text-white text-base tracking-wide placeholder-dark-muted focus:outline-none px-4 py-4 font-medium disabled:opacity-50"
-          />
-          <div className="pr-3 flex items-center">
-            <button
-              type="submit"
-              disabled={isLoading || !query.trim()}
-              className="bg-gradient-to-r from-brand-secondary to-brand-primary hover:from-brand-primary hover:to-brand-secondary text-dark-bg font-extrabold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none text-sm tracking-wider uppercase cursor-pointer"
-            >
-              {isLoading ? 'Researching...' : 'Analyze'}
-            </button>
-          </div>
+          
+          {/* Analyze action button */}
+          <button
+            type="submit"
+            disabled={isLoading || !query.trim()}
+            className="bg-gradient-to-r from-brand-secondary to-brand-primary hover:from-brand-primary hover:to-brand-secondary text-dark-bg font-extrabold px-8 py-3.5 rounded-2xl transition-all duration-300 shadow-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none text-xs sm:text-sm tracking-wider uppercase cursor-pointer whitespace-nowrap shrink-0"
+          >
+            {isLoading ? 'Researching...' : 'Analyze'}
+          </button>
         </div>
 
         {error && (
-          <div className="absolute mt-1.5 left-2 flex items-center gap-1 text-xs text-brand-danger">
+          <div className="flex items-center gap-1 text-xs text-brand-danger mt-2 ml-2">
             <AlertCircle className="w-3.5 h-3.5" />
             <span>{error}</span>
           </div>
