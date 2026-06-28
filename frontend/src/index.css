@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-dark-text font-sans antialiased overflow-x-hidden;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0f1d;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2e4d;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(18, 26, 46, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(31, 46, 77, 0.5);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(18, 26, 46, 0.85);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.08);
+}
+
+/* Glow texts */
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+/* Custom Pulsing Keyframes */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+  }
+}
+
+.glow-pulse {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+/* Print layout for PDF export */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    font-size: 12pt;
+    margin: 0 !important;
+  }
+
+  /* Hide interactive controls, sidebars, footer, navbar */
+  nav, aside, footer, .print\:hidden, button, select {
+    display: none !important;
+  }
+
+  /* Expand main panel */
+  main {
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  #printable-dashboard {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Turn dark panel blocks into clean printable cards */
+  .glass-panel {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    color: #1e293b !important;
+  }
+
+  h1, h2, h3, h4, span, p, li, strong {
+    color: #0f172a !important;
+    text-shadow: none !important;
+  }
+
+  .text-dark-muted {
+    color: #64748b !important;
+  }
+
+  .bg-slate-900\/40, .bg-slate-900\/30, .bg-slate-900\/60, .bg-dark-bg\/60 {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+  }
+
+  /* Align layouts sequentially */
+  .grid {
+    display: block !important;
+  }
+
+  .grid > div {
+    margin-bottom: 1.5rem !important;
+    width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Fix chart visibility */
+  .recharts-cartesian-grid-horizontal line {
+    stroke: #e2e8f0 !important;
+  }
+}
